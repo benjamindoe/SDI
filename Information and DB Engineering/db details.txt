@@ -1,0 +1,3 @@
+DB Name db1
+DB Username N0561281
+DB Password gHS2kA
