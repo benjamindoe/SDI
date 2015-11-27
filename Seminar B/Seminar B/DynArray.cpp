@@ -14,7 +14,12 @@ namespace SDI
 			sz_ = 0;
 		}
 
-		template <class ComponentType>
+	template<class ComponentType>
+	DynArray<ComponentType>::DynArray()
+	{
+	}
+
+	template <class ComponentType>
 		DynArray<ComponentType>::DynArray(DynArray<ComponentType> & tbc)
 		{
 			buffer_ = new ComponentType[tbc.cap_];
@@ -25,10 +30,30 @@ namespace SDI
 				buffer_[i] = tbc.buffer_[i];
 			}
 		}
+
 		template <class ComponentType>
 		DynArray<ComponentType>::~DynArray()
 		{
 			delete[] buffer_;
+		}
+
+		template <class ComponentType>
+		void DynArray<ComponentType>::expandBuffer()
+		{
+			if (sz_ == cap_)
+			{
+				int newCap = cap_ * 1.5;
+				ComponentType * tmp = new ComponentType[newCap];
+
+				for (int i = 0; i < cap_; i++)
+				{
+					tmp[i] = buffer_[i];
+				}
+
+				delete[] buffer_;
+				buffer_ = tmp;
+				cap_ = newCap;
+			}
 		}
 
 		template <class ComponentType>
@@ -55,17 +80,7 @@ namespace SDI
 
 			if (sz_ == cap_)
 			{
-				int newCap = cap_ * 1.5;
-				ComponentType * tmp = new ComponentType[newCap];
-				
-				for (int i = 0; i < cap_; i++)
-				{
-					tmp[i] = buffer_[i];
-				}
-
-				delete[] buffer_;
-				buffer_ = tmp;
-				cap_ = newCap;
+				expandBuffer();
 			}
 			buffer_[sz_] = data;
 			sz_++;
@@ -131,6 +146,77 @@ namespace SDI
 		}
 
 		template <class ComponentType>
+		void DynArray<ComponentType>::insert(ComponentType data, int index)
+		{
+			if (index < cap_)
+			{
+				ComponentType tmp;
+
+				if (sz_ == cap_) 
+					expandBuffer();
+
+				for (int i = sz_; i >= 0; i--)
+				{
+					buffer_[i + 1] = buffer_[i];
+				}
+				buffer_[index] = data;
+			}
+		}
+
+		template <class ComponentType> 
+		void DynArray<ComponentType>::remove(int index)
+		{
+			if (index < sz_)
+			{
+				for (int i = index; i <= sz_; i++)
+				{
+					buffer_[i] = buffer_[i + 1];
+				}
+				sz_--;
+			}
+		}
+
+		template <class ComponentType>
+		void DynArray<ComponentType>::push_front(ComponentType data)
+		{
+			insert(data, 0);
+		}
+
+		template <class ComponentType>
+		void DynArray<ComponentType>::pop_front()
+		{
+			remove(0);
+		}
+
+		template <class ComponentType>
+		void DynArray<ComponentType>::append(DynArray<ComponentType>& tba)
+		{
+			int newSz = sz_ + tba.sz_;
+			if (newSz > cap_)
+			{
+				int newCap = newSz * 1.5;
+				ComponentType * tmp = new ComponentType[newCap];
+				int j = 0;
+				for (int i = 0; i < newSz; i++)
+				{
+					if (i < sz_)
+					{
+						tmp[i] = buffer_[i];
+					}
+					else
+					{
+						tmp[i] = tba[j];
+					}
+					j++;
+				}
+				delete[] buffer_;
+				buffer_ = tmp;
+				cap_ = newCap;
+				sz_ = newSz;
+			}
+		}
+
+		template <class ComponentType>
 		DynArray<ComponentType> & DynArray<ComponentType>::operator=(const DynArray<ComponentType> & rhs)
 		{
 			if (buffer_ != rhs.buffer_)
@@ -139,7 +225,7 @@ namespace SDI
 				buffer_ = new ComponentType[rhs.cap_];
 				cap_ = rhs.cap_;
 				sz_ = rhs.sz_;
-				for (unsigned int i = 0; i < cap_; ++i)
+				for (unsigned int i = 0; i < cap_; i++)
 				{
 					buffer_[i] = rhs.buffer_[i];
 				}

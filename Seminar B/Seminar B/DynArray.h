@@ -17,23 +17,31 @@ private:
 	ComponentType * buffer_;
 	int cap_;
 	int sz_;
-public:
+	void expandBuffer();
 	DynArray();
+public:
 	DynArray(DynArray<ComponentType>&);
 	DynArray(int);
 	~DynArray();
 	int size() const;
 	int capacity() const;
 	bool empty() const;
-	void push_back(ComponentType);
-	void pop_back();
 	ComponentType back() const;
 	ComponentType front() const;
 	ComponentType get(int) const;
+	void push_back(ComponentType);
+	void push_front(ComponentType);
 	void set(ComponentType, int);
-	void zap();
+	void insert(ComponentType, int);
+	void append(DynArray<ComponentType>&);
+	void pop_back();
+	void pop_front();
+	void remove(int);
 	void shrink();
-	DynArray & operator=(const DynArray<ComponentType> & rhs);
+	void zap();
+
+	DynArray & operator+=(DynArray<ComponentType>&);
+	DynArray & operator=(const DynArray<ComponentType>&);
 };
 
 template <class ComponentType>
