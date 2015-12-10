@@ -1,5 +1,5 @@
 #ifndef SDI_CPP
-#define SDI
+#define SDI_CPP
 
 #include "SDI.h"
 
@@ -27,10 +27,14 @@ namespace SDI
 			{
 				if (strlen(argv[i]) > 1 && argv[i][0] == '-' || argv[i][0] == ' / ' )
 				{
-					for (int j = 1; j < strlen(argv[i]); j++)
-					{
-						flags.insert(argv[i][j]);
+					std::string str(argv[i]);
+					if (str.find('=') == std::string::npos) {
+						for (int j = 1; j < str.length(); j++)
+						{
+							flags.insert(str[j]);
+						}
 					}
+					
 				}
 			}
 		}
@@ -44,9 +48,9 @@ namespace SDI
 		{
 			for (int i = 1; i < argc; i++)
 			{
-				if (strlen(argv[i]) > 1 && argv[i][0] == '-')
+				std::string str(argv[i]);
+				if (str.length() > 1 && str[0] == '-' && str.find('=') != std::string::npos)
 				{
-					std::string str(argv[i]);
 					std::size_t pos = str.find('=');
 					std::string argVal = str.substr(pos + 1);
 					flagValues.insert( std::pair<char, std::string>(argv[i][1], argVal) );
