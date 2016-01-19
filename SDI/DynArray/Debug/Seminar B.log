@@ -1,23 +1,20 @@
-﻿Build started 11/12/2015 13:31:51.
-     1>Project "C:\Users\N0561281\Desktop\SDI\DynArray\Seminar B.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/01/2016 00:35:40.
+     1>Project "D:\N0561281\SDI\SDI\DynArray\Seminar B.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DynArray.cpp main.cpp
-         main.cpp
-     1>c:\users\n0561281\desktop\sdi\dynarray\dynarray.cpp(45): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-                 c:\users\n0561281\desktop\sdi\dynarray\dynarray.cpp(42) : while compiling class template member function 'void SDI::DynArray<int>::expandBuffer(void)'
-                 c:\users\n0561281\desktop\sdi\dynarray\dynarray.cpp(83) : see reference to function template instantiation 'void SDI::DynArray<int>::expandBuffer(void)' being compiled
-                 c:\users\n0561281\desktop\sdi\dynarray\dynarray.cpp(11) : while compiling class template member function 'SDI::DynArray<int>::DynArray(int)'
-                 c:\users\n0561281\desktop\sdi\dynarray\main.cpp(8) : see reference to function template instantiation 'SDI::DynArray<int>::DynArray(int)' being compiled
-                 c:\users\n0561281\desktop\sdi\dynarray\main.cpp(8) : see reference to class template instantiation 'SDI::DynArray<int>' being compiled
          DynArray.cpp
          Generating Code...
-     1>c:\users\n0561281\desktop\sdi\dynarray\dynarray.cpp(114): warning C4715: 'SDI::DynArray<int>::get' : not all control paths return a value
+         Compiling...
+         main.cpp
+     1>d:\n0561281\sdi\sdi\dynarray\dynarray.h(45): warning C4520: 'SDI::DynArray<int>' : multiple default constructors specified
+                 d:\n0561281\sdi\sdi\dynarray\main.cpp(8) : see reference to class template instantiation 'SDI::DynArray<int>' being compiled
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\N0561281\Desktop\SDI\Debug\Seminar B.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\N0561281\Desktop\SDI\Debug\Seminar B.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\N0561281\Desktop\SDI\Debug\Seminar B.lib" /MACHINE:X86 Debug\DynArray.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\N0561281\SDI\SDI\Debug\Seminar B.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\N0561281\SDI\SDI\Debug\Seminar B.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\N0561281\SDI\SDI\Debug\Seminar B.lib" /MACHINE:X86 Debug\DynArray.obj
          Debug\main.obj
-         Seminar B.vcxproj -> C:\Users\N0561281\Desktop\SDI\Debug\Seminar B.exe
-     1>Done Building Project "C:\Users\N0561281\Desktop\SDI\DynArray\Seminar B.vcxproj" (Build target(s)).
+         Seminar B.vcxproj -> D:\N0561281\SDI\SDI\Debug\Seminar B.exe
+     1>Done Building Project "D:\N0561281\SDI\SDI\DynArray\Seminar B.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.09
+Time Elapsed 00:00:03.05

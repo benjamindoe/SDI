@@ -1,5 +1,5 @@
-#ifndef SDI_H
-#define SDI_H
+#ifndef CLARGS_H
+#define CLARGS_H
 
 #include <vector>
 #include <string>

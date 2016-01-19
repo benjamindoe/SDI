@@ -1,5 +1,3 @@
-
-
 #ifndef SDI_DYN_ARRAY_H
 #define SDI_DYN_ARRAY_H
 #include <string>
@@ -21,7 +19,7 @@ private:
 	DynArray();
 public:
 	DynArray(DynArray<ComponentType>&);
-	DynArray(int);
+	DynArray(int = 10);
 	~DynArray();
 	int size() const;
 	int capacity() const;
@@ -39,9 +37,11 @@ public:
 	void remove(int);
 	void shrink();
 	void zap();
-
-	DynArray & operator+=(DynArray<ComponentType>&);
 	DynArray & operator=(const DynArray<ComponentType>&);
+	ComponentType& operator[](int);
+	template <class T>
+	friend std::ostream &operator<< (std::ostream& out, DynArray<T>& arrayOut);
+
 };
 
 template <class ComponentType>

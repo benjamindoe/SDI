@@ -1,5 +1,5 @@
-#ifndef SDI_CPP
-#define SDI_CPP
+#ifndef CLARGS_CPP
+#define CLARGS_CPP
 
 #include "CLargs.h"
 
@@ -29,7 +29,7 @@ namespace SDI
 				{
 					std::string str(argv[i]);
 					if (str.find('=') == std::string::npos) {
-						for (int j = 1; j < str.length(); j++)
+						for (unsigned int j = 1; j < str.length(); j++)
 						{
 							flags.insert(str[j]);
 						}
