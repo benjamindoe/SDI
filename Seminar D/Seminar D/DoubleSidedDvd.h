@@ -7,10 +7,8 @@ class DoubleSidedDvd :
 	public Disc
 {
 public:
-	DoubleSidedDvd();
 	DoubleSidedDvd(std::vector<std::string>&properties);
 	~DoubleSidedDvd();
-	void setProperties(std::vector<std::string>& properties);
 	std::vector<std::string> getProperties();
 private:
 	Disc* sideA;

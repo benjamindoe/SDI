@@ -8,14 +8,14 @@
 class Material
 {
 public:
-
-	virtual void setProperties(std::vector<std::string>& properties) = 0;
+	Material(std::vector<std::string>& properties);
 	virtual std::vector<std::string> getProperties() = 0;
 protected:
 	int idNumber;
 	std::string MaterialTitle;
 	std::string format;
 	std::string packagingSpec;
+	std::string relatedProject;
 	double retailPrice;
 };
 

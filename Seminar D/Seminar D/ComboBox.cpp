@@ -1,24 +1,24 @@
 #include "ComboBox.h"
 
 
-ComboBox::ComboBox()
+ComboBox::ComboBox(std::vector<std::string>& properties) : Material(properties)
 {
-}
+	int noOfDiscs = std::stoi(properties[6]);
+	int offset = 6;
+	for (int i = 0; i < noOfDiscs; i++)
+	{
+		int vecSize = calcDiscVecSize(properties, offset);
+		std::vector<std::string> tmpVector(properties.begin() + offset, properties.begin() + vecSize);
+		ComboDiscs.push_back(new Disc(tmpVector));
+		offset = vecSize;
+	}
 
+}
 
 ComboBox::~ComboBox()
 {
+	ComboDiscs.~vector();
 }
-
-void ComboBox::setProperties(std::vector<std::string>& properties)
-{
-	idNumber = std::stoi(properties[1]);
-	MaterialTitle = properties[2];
-	format = properties[3];
-	packagingSpec = properties[4];
-	retailPrice = std::stoi(properties[5]);
-}
-
 
 std::vector<std::string> ComboBox::getProperties()
 {
@@ -35,4 +35,14 @@ std::vector<std::string> ComboBox::getProperties()
 		tmp.insert(tmp.end(), DiscProperties.begin(), DiscProperties.end());
 	}
 	return tmp;
+}
+
+int ComboBox::calcDiscVecSize(std::vector<std::string>& properties, int offset)
+{
+	int vecSize = offset + 1 + std::stoi(properties[offset]);
+	int subNo = std::stoi(properties[vecSize]);
+	vecSize += 1 + subNo;
+	int bonNo = std::stoi(properties[vecSize]);
+	vecSize += 1 + bonNo;
+	return vecSize;
 }

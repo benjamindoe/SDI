@@ -1,26 +1,9 @@
 #include "Disc.h"
 
 
-Disc::Disc()
-{
-}
 
-Disc::Disc(std::vector<std::string>& properties)
+Disc::Disc(std::vector<std::string>& properties) : Material(properties)
 {
-	setProperties(properties);
-}
-
-Disc::~Disc()
-{
-}
-
-void Disc::setProperties(std::vector<std::string>& properties)
-{
-	idNumber = std::stoi(properties[1]);
-	MaterialTitle = properties[2];
-	format = properties[3];
-	packagingSpec = properties[4];
-	retailPrice = std::stoi(properties[5]);
 	int langNo = std::stoi(properties[6]);
 	for (int i = 0; i < langNo; i++)
 	{
@@ -48,6 +31,10 @@ void Disc::setProperties(std::vector<std::string>& properties)
 	audioFormat = properties[vecPos];
 	frameAspect = properties[vecPos + 1];
 	runtime = std::stoi(properties[vecPos + 2]);
+}
+
+Disc::~Disc()
+{
 }
 
 std::vector<std::string> Disc::getProperties()

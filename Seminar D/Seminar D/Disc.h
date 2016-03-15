@@ -8,10 +8,8 @@ class Disc :
 	public Material
 {
 public:
-	Disc();
 	Disc(std::vector<std::string>& properties);
 	~Disc();
-	void setProperties(std::vector<std::string>& properties);
 	std::vector<std::string> getProperties();
 protected:
 	int calcDiscVecSize(std::vector<std::string>& properties, int offset);

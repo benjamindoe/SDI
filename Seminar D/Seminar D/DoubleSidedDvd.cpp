@@ -1,29 +1,20 @@
 #include "DoubleSidedDvd.h"
 
 
-DoubleSidedDvd::DoubleSidedDvd()
+DoubleSidedDvd::DoubleSidedDvd(std::vector<std::string>&properties) : Disc(properties)
 {
-}
+	int sideASize = calcDiscVecSize(properties, 7);
+	std::vector<std::string> sideAVec(properties.begin() + 1, properties.begin() + sideASize);
+	std::vector<std::string> sideBVec(properties.begin() + sideASize, properties.end());
 
-DoubleSidedDvd::DoubleSidedDvd(std::vector<std::string>&properties)
-{
-	setProperties(properties);
+	sideA = new Disc(sideAVec);
+	sideB = new Disc(sideBVec);
 }
 
 DoubleSidedDvd::~DoubleSidedDvd()
 {
-}
-
-void DoubleSidedDvd::setProperties(std::vector<std::string>& properties)
-{
-
-
-	int sideASize = calcDiscVecSize(properties, 7);
-	std::vector<std::string> sideAVec(properties.begin() + 1, properties.begin() + sideASize);
-	std::vector<std::string> sideBVec(properties.begin() + sideASize, properties.end());
-	
-	sideA = new Disc(sideAVec);
-	sideB = new Disc(sideBVec);
+	sideA->~Disc();
+	sideB->~Disc();
 }
 
 std::vector<std::string> DoubleSidedDvd::getProperties()

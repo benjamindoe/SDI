@@ -1,27 +1,18 @@
 #include "Vhs.h"
 
 
-Vhs::Vhs()
+Vhs::Vhs(std::vector<std::string>& properties) : Material(properties)
 {
-}
-
-
-Vhs::~Vhs()
-{
-}
-
-void Vhs::setProperties(std::vector<std::string>& properties)
-{
-	idNumber = std::stoi(properties[1]);
-	MaterialTitle = properties[2];
-	format = properties[3];
-	packagingSpec = properties[4];
-	retailPrice = std::stoi(properties[5]);
 	language = properties[6];
 	subLanguage = properties[7];
 	audioFormat = properties[8];
 	frameAspect = properties[9];
 	runtime = std::stoi(properties[10]);
+}
+
+
+Vhs::~Vhs()
+{
 }
 
 std::vector<std::string> Vhs::getProperties()

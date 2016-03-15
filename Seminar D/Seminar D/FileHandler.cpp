@@ -4,9 +4,9 @@
 #include "FileHandler.h"
 
 
-FileHandler::FileHandler(std::string filename)
+FileHandler::FileHandler(std::string filename, std::ios_base::openmode mode)
 {
-	file.open(filename);
+	file.open(filename, mode);
 }
 
 

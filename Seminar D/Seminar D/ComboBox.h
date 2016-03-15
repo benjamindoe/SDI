@@ -9,11 +9,11 @@ class ComboBox :
 	public Material
 {
 public:
-	ComboBox();
+	ComboBox(std::vector<std::string>& properties);
 	~ComboBox();
-	void setProperties(std::vector<std::string>& attribs);
 	std::vector<std::string> getProperties();
 private:
+	int calcDiscVecSize(std::vector<std::string>& properties, int offset);
 	std::vector<Disc*> ComboDiscs;
 };
 
