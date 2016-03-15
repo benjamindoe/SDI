@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 	FileHandler handlerMat("materials.csv");
 
 	std::vector<std::vector<std::string>> projectAttribs = handlerProj.parseCsv();
-	
+	std::vector<std::vector<std::string>> materialAttribs = handlerProj.parseCsv();
 
 	myProjects.push_back(new Project());
 	return 0;

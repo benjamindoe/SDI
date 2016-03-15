@@ -27,7 +27,7 @@ Material* SimpleFactory::create(std::string materialType, std::vector<std::strin
 	}
 	else if (materialType == "Double Sided DVD")
 	{
-		materialPtr = new DoubleSidedDvd();
+		materialPtr = new DoubleSidedDvd(data);
 	}
 	else
 	{

@@ -18,7 +18,8 @@ Vhs::~Vhs()
 std::vector<std::string> Vhs::getProperties()
 {
 	std::vector<std::string> tmp;
-	tmp.push_back("Disc");
+	tmp = Material::getProperties();
+	tmp.push_back("VHS");
 	tmp.push_back(std::to_string(idNumber));
 	tmp.push_back(MaterialTitle);
 	tmp.push_back(format);
