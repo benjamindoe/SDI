@@ -12,24 +12,34 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComboBox.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Disc.h" />
     <ClInclude Include="DoubleSidedDvd.h" />
-    <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="IOHandler.h" />
+    <ClInclude Include="JSON\JSON.h" />
+    <ClInclude Include="JSON\JSONValue.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="SimpleFactory.h" />
     <ClInclude Include="Vhs.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ComboBox.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Disc.cpp" />
     <ClCompile Include="DoubleSidedDvd.cpp" />
-    <ClCompile Include="FileHandler.cpp" />
+    <ClCompile Include="IOHandler.cpp" />
+    <ClCompile Include="JSON\JSON.cpp" />
+    <ClCompile Include="JSON\JSONValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="SimpleFactory.cpp" />
     <ClCompile Include="Vhs.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1FC266FD-A1CA-4E22-89B3-0646ACDBB108}</ProjectGuid>
