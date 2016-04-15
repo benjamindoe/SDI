@@ -1,4 +1,3 @@
-#pragma once
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
@@ -14,6 +13,8 @@ public:
 	Material(json properties);
 	virtual ~Material() = 0;
 	virtual json getProperties() = 0;
+
+	int getId() const;
 protected:
 	int idNumber;
 	std::string MaterialTitle;
@@ -22,4 +23,4 @@ protected:
 	double retailPrice;
 };
 
-#endif //MATERIAL_H
+#endif // !MATERIAL_H

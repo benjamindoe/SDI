@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="materials.csv" />
-    <None Include="TrekStarDatabase.json" />
+    <None Include="TrekStar.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1FC266FD-A1CA-4E22-89B3-0646ACDBB108}</ProjectGuid>

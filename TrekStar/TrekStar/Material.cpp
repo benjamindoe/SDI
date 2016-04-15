@@ -1,3 +1,6 @@
+#ifndef MATERIAL_CPP
+#define MATERIAL_CPP
+
 #include <fstream>
 #include <vector>
 #include <cassert>
@@ -20,5 +23,17 @@ Material::~Material() {}
 
 json Material::getProperties()
 {
-
+	json tmp;
+	tmp["ID"] = idNumber;
+	tmp["Material Title"] = MaterialTitle;
+	tmp["Format"] = format;
+	tmp["Packaging Specification"] = packagingSpec;
+	tmp["Retail Price"] = retailPrice;
 }
+
+int Material::getId() const
+{
+	return idNumber;
+}
+
+#endif // !MATERIAL_CPP

@@ -18,20 +18,40 @@ using json = nlohmann::json;
 #include "DoubleSidedDvd.h"
 #include "Vhs.h"
 
+using namespace std;
+
 class Model
 {
 public:
-	Model(std::string filename);
+	/*
+	 * Construct and destruct
+	 */
+	Model(string filename = "TrekStar.json");
 	~Model();
-	void addMaterial(json properties);
-	void addProject(json properties);
+	
+	/*
+	 * Manipulating the material and projects.
+	 */
+	bool addMaterial(int projectId, json properties);
+	bool addProject(json properties);
 	void removeMaterial(int id);
 	void removeProject(int id);
+
+	/*
+	 * Search members
+	 */
+	map<string, string> searchProjectByName(string projectName);
+	map<string, string> searchProjectByKeywords(string keyword);
+	// map<string, string> searchProjectByActor(string projetName);
+	map<string, string> searchByMaterialByTitle(string materialTitle);
+
+	void save();
 private:
-	std::vector<Project*> projects;
-	std::vector<Material*> materials;
+	vector<Project*> projects;
+	vector<Material*> materials;
 	json root;
 	FileHandler* handler;
+	SimpleFactory* factory;
 };
 
 #endif // !MODEL_H

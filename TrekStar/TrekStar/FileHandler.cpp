@@ -1,3 +1,6 @@
+#ifndef FILEHANDLER_CPP
+#define FILEHANDLER_CPP
+
 #include <sstream>
 #include <cassert>
 
@@ -15,18 +18,17 @@ FileHandler::~FileHandler()
 	file.close();
 }
 
-JSONValue* FileHandler::parseJson()
+json FileHandler::parseJson()
 {
 	std::string fileContent((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
 	const char* jsonBuffer = fileContent.c_str();
 
-	return JSON::Parse(jsonBuffer);
+	return json::parse(jsonBuffer);
 }
 
-void FileHandler::writeJson(JSONObject jsonData)
+void FileHandler::writeJson(json jsonData)
 {
-	JSONValue* jsonVal = new JSONValue(jsonData);
-	file << jsonVal->Stringify().c_str();
+	file << jsonData;
 }
 
 std::vector<std::vector<std::string>> FileHandler::parseCsv()
@@ -56,3 +58,5 @@ void FileHandler::writeCsv(std::vector<std::string> dataToWrite)
 	}
 	//dataToWrite
 }
+
+#endif // !FILEHANDLER_CPP

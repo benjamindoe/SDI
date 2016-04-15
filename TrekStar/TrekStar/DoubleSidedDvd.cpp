@@ -1,5 +1,7 @@
-#include "DoubleSidedDvd.h"
+#ifndef DOUBLE_SIDED_DVD_CPP
+#define DOUBLE_SIDED_DVD_CPP
 
+#include "DoubleSidedDvd.h"
 
 DoubleSidedDvd::DoubleSidedDvd(json properties) : Disc(properties)
 {
@@ -16,10 +18,10 @@ DoubleSidedDvd::~DoubleSidedDvd()
 
 json DoubleSidedDvd::getProperties()
 {
-	json comboObj;
-	comboObj = Material::getProperties();
-	comboObj["Side A"] = sideA->getProperties();
-	comboObj["Side B"] = sideB->getProperties();
-	return comboObj;
+	json tmp = Material::getProperties();
+	tmp["Side A"] = sideA->getProperties();
+	tmp["Side B"] = sideB->getProperties();
+	return tmp;
 }
 
+#endif // !DOUBLE_SIDED_DVD_CPP

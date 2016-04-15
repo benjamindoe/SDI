@@ -121,7 +121,7 @@
     <None Include="materials.csv">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="TrekStarDatabase.json">
+    <None Include="TrekStar.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

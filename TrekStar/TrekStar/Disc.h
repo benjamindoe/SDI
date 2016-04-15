@@ -4,6 +4,8 @@
 #include <vector>
 #include "Material.h"
 
+using namespace std;
+
 class Disc :
 	public Material
 {
@@ -12,11 +14,11 @@ public:
 	~Disc();
 	json getProperties();
 protected:
-	std::vector<std::string> language;
-	std::vector<std::string> subLanguage;
-	std::vector<std::string> bonusFeatures;
-	std::string audioFormat;
-	std::string frameAspect;
+	vector<string> language;
+	vector<string> subLanguage;
+	vector<string> bonusFeatures; // Could be expanded to have it's own class.
+	string audioFormat;
+	string frameAspect;
 	int runtime;
 
 };

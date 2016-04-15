@@ -17,4 +17,4 @@ public:
 	Material* create(std::string materialType, json data);
 };
 
-#endif
+#endif // !SIMPLEFACTORY_H

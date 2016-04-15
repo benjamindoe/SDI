@@ -1,5 +1,8 @@
-#include "SimpleFactory.h"
+#ifndef SIMPLEFACTORY_CPP
+#define SIMPLEFACTORY_CPP
+
 #include <iostream>
+#include "SimpleFactory.h"
 
 SimpleFactory::SimpleFactory()
 {
@@ -35,3 +38,5 @@ Material* SimpleFactory::create(std::string materialType, json data)
 	}
 	return materialPtr;
 }
+
+#endif // !SIMPLEFACTORY_CPP

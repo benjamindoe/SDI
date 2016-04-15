@@ -13,11 +13,11 @@ int main(int argc, char* argv[])
 {
 	
 	std::vector<Project *> myProjects;
-	FileHandler handlerProj("projects.csv");
-	FileHandler handlerMat("materials.csv");
+	FileHandler handlerProj("TrekStar.json");
+	//FileHandler handlerMat("materials.csv");
 
-	std::vector<std::vector<std::string>> projectAttribs = handlerProj.parseCsv();
-	std::vector<std::vector<std::string>> materialAttribs = handlerProj.parseCsv();
+	//std::vector<std::vector<std::string>> projectAttribs = handlerProj.parseCsv();
+	//std::vector<std::vector<std::string>> materialAttribs = handlerProj.parseCsv();
 
 	myProjects.push_back(new Project());
 	return 0;

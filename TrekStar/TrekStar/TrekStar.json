@@ -1,0 +1,44 @@
+{"Projects":[
+  {
+    "ID" : 1,
+    "Project Name": "Furious 7",
+    "Summary": "Lots of fast cars doing unbeleivably rediculous stunts that are Ludicrisly unrealistic. Yes that was a joke about Luda.",
+    "Genre": "Action",
+    "Filming Locations": [
+      "Los Angeles",
+      "Tokyo",
+      "Abu Dhabi"
+    ],
+    "Language": "English",
+    "Keywords": [
+      "Paul",
+      "Walker",
+      "Vin",
+      "Diesel",
+      "Car",
+      "Heist",
+      "Nissan",
+      "Skyline",
+      "Dodge",
+      "Charger"
+    ],
+    "Runtime": 140,
+    "Weekly Box Office": 300
+  },
+  {
+    "ID" : 2,
+    "Project Name": "E.T. the Extra-Terrestrial",
+    "Summary": "Alien comes down, befriends a kid, they have a bike ride. E.T. goes home.",
+    "Genre": "Sci-Fi",
+    "Filming Locations": [
+      "United States"
+    ],
+    "Language": "English",
+    "Keywords": [
+      "Alien",
+      "E.T."
+    ],
+    "Runtime": 121,
+    "Weekly Box Office": 300
+  }
+]}

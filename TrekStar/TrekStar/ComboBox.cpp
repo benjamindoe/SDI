@@ -1,3 +1,6 @@
+#ifndef COMBOBOX_CPP
+#define COMBOBOX_CPP
+
 #include "ComboBox.h"
 
 ComboBox::ComboBox(json properties) : Material(properties)
@@ -16,17 +19,13 @@ ComboBox::~ComboBox()
 
 json ComboBox::getProperties()
 {
-	std::vector<std::string> tmp;
-	tmp.push_back("ComboBox");
-	tmp.push_back(std::to_string(idNumber));
-	tmp.push_back(MaterialTitle);
-	tmp.push_back(format);
-	tmp.push_back(packagingSpec);
-	tmp.push_back(std::to_string(retailPrice));
-	for (std::vector<Disc*>::iterator it = ComboDiscs.begin(); it != ComboDiscs.end(); it++)
-	{
-		std::vector<std::string> DiscProperties = (*it)->getProperties();
-		tmp.insert(tmp.end(), DiscProperties.begin(), DiscProperties.end());
-	}
+	json tmp = Material::getProperties();
+	tmp["Discs"] = {};
+	for (Disc* disc : ComboDiscs)
+		tmp["Discs"].push_back(disc);
+
 	return tmp;
 }
+
+
+#endif // !COMBOBOX_CPP

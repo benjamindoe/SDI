@@ -1,3 +1,6 @@
+#ifndef PROJECT_CPP
+#define PROJECT_CPP
+
 #include <sstream>
 #include <iomanip>
 #include <map>
@@ -5,32 +8,32 @@
 #include "Project.h"
 
 
-Project::Project(std::vector<std::string> parsed)
+Project::Project(json properties)
 {
 	
-	projectTitle = parsed[0];
-	summary = parsed[1];
-	genre = parsed[2];
+	projectTitle = properties["Project Title"].get<string>();
+	summary = properties["Summary"].get<string>();
+	genre = properties["Genre"].get<string>();
 
 	struct tm tm;
-	std::stringstream tmpSs(parsed[3]);
+	std::stringstream tmpSs(properties["Release Date"].get<string>());
 	tmpSs >> std::get_time(&tm, "%F");
 	releaseDate = mktime(&tm);
 
-	language = parsed[4];
-	weeklyBoxOffice = std::stoi(parsed[5]);
+	language = properties["Lanuguage"].get<string>();
+	weeklyBoxOffice = properties["Weekly Box Office"].get<int>();
+	keywords = properties["Keywords"].get<vector<string>>();
 
-	for (std::vector<std::string>::iterator it = parsed.begin() + 5; it != parsed.end(); it++)
-		keywords.push_back(*it);
+	for (json material : properties["Materials"])
+		projMaterialIds.push_back(material["ID"].get<int>());
 }
-        
 
 Project::~Project()
 {
 }
 
 
-std::vector<std::string> Project::getProject() 
+json Project::getProperties() const
 {
 	char buffer[20];
 	struct tm tm;
@@ -47,3 +50,32 @@ std::vector<std::string> Project::getProject()
 
 	return rVec;
 }
+
+string Project::getTitle() const
+{
+	return projectTitle;
+}
+
+int Project::getId() const
+{
+	return id;
+}
+
+string Project::getStatus() const
+{
+	return status;
+}
+
+void Project::addMaterialRef(int materialId)
+{
+	projMaterialIds.push_back(materialId);
+}
+
+vector<int> Project::getMaterialIds() const
+{
+	return projMaterialIds;
+}
+
+
+#endif // !PROJECT_CPP
+

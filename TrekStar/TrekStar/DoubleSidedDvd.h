@@ -15,4 +15,4 @@ private:
 	Disc* sideB;
 };
 
-#endif //DOUBLE_SIDED_DVD_H
+#endif // !DOUBLE_SIDED_DVD_H

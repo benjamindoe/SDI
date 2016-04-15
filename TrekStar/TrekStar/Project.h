@@ -5,8 +5,9 @@
 #include <vector>
 #include <ctime>
 #include <map>
-
+#include "JSON\json.hpp"
 using json = nlohmann::json;
+
 using namespace std;
 
 class Project
@@ -14,8 +15,19 @@ class Project
 public:
 	Project(json properties);
 	~Project();
-	std::vector<std::string> Project::getProject();
+
+	void addMaterialRef(int materialId);
+
+	/*
+	 * Getters
+	 */
+	json Project::getProperties() const;
+	string getTitle() const;
+	int getId() const;
+	string getStatus() const;
+	vector<int> getMaterialIds() const;
 private:
+	int id;
 	string projectTitle;
 	string summary;
 	string genre;
@@ -23,7 +35,9 @@ private:
 	string language;
 	int weeklyBoxOffice;
 	vector<string> keywords;
-	vector<int*> projMaterials;
+	vector<int> projMaterialIds;
+	vector<pair<string, string>> castAndCrew;
+	string status;
 };
 
-#endif //PROJECT_H
+#endif // !PROJECT_H

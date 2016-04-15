@@ -1,5 +1,7 @@
-#include "Vhs.h"
+#ifndef VHS_CPP
+#define VHS_CPP
 
+#include "Vhs.h"
 
 Vhs::Vhs(json properties) : Material(properties)
 {
@@ -17,19 +19,13 @@ Vhs::~Vhs()
 
 json Vhs::getProperties()
 {
-	std::vector<std::string> tmp;
-	tmp = Material::getProperties();
-	tmp.push_back("VHS");
-	tmp.push_back(std::to_string(idNumber));
-	tmp.push_back(MaterialTitle);
-	tmp.push_back(format);
-	tmp.push_back(packagingSpec);
-	tmp.push_back(std::to_string(retailPrice));
-	tmp.push_back(language);
-	tmp.push_back(subLanguage);
-	tmp.push_back(audioFormat);
-	tmp.push_back(frameAspect);
-	tmp.push_back(std::to_string(runtime));
+	json tmp = Material::getProperties();
+	tmp["Language"] = language;
+	tmp["Subtitle Language"] = subLanguage;
+	tmp["Frame Aspect"] = frameAspect;
+	tmp["Runtime"] = runtime;
 
 	return tmp;
 }
+
+#endif // !VHS_CPP
