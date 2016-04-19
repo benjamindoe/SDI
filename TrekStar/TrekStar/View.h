@@ -37,10 +37,10 @@ public:
 	};
 	View();
 	~View();
-	static void make(Views view);
-	static void make(Views view, vector<viewParams> params);
-	static void make(Views view, viewParams params);
-	static viewData get(Inputs view);
+	void make(Views view);
+	void make(Views view, vector<viewParams> params);
+	void make(Views view, viewParams params);
+	viewData get(Inputs view);
 
 private:
 	void main();                                                           

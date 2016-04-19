@@ -27,7 +27,7 @@ void View::make(Views view)
 		mainProject();
 		break;
 	case Views::MAIN_MATERIAL:
-		addMaterial();
+		mainMaterial();
 		break;
 	default:
 		break;
@@ -66,7 +66,7 @@ void View::make(Views view, viewParams params)
 
 viewData View::get(Inputs view)
 {
-	map<string, string> userInput;
+	viewData userInput;
 	switch (view)
 	{
 	case View::ADD_PROJECT:
@@ -122,29 +122,24 @@ void View::mainMaterial()
 void View::viewMaterials(vector<viewParams> params)
 {
 	ostringstream output;
+	output
+		<< "Materials\n"
+		<< "---------\n\n";
 	for (viewParams material : params)
 	{
+		output << viewMaterial(material).str() << "\n";
 	}
+	output << endl;
+	cout << output.str() << endl;
 }
 
 ostringstream View::viewMaterial(viewParams params, bool printStream)
 {
 	ostringstream output;
-	output
-		<< ""
-		<< "Title: " << params["title"] << "\n"
-		<< "ID Number" << params["id"] << "\n"
-		<< "Format: " << params["Format"] << "\n"
-		<< "Runtime: " << params["runtime"] << "\n"
-		<< "Language(s): ";
-	
-	stringstream ss(params["Language"]);
-	string token;
-	while (getline(ss, token, ','))
-		output << token << '\n';
-
-	output
-		<< endl;
+	for (auto& keyVal : params)
+	{
+		output << keyVal.first << ": " << keyVal.second << "\n";
+	}
 
 	if (printStream)
 	{
@@ -252,6 +247,8 @@ viewData View::addMaterial(bool isCombo)
 		}
 	}
 
+	cout << "Retail Price: ";
+	cin >> matData["Retail Price"];
 	cout << endl;
 	return matData;
 
@@ -349,5 +346,21 @@ viewData View::addProject()
 	}
 
 	return projData;
+}
+
+viewData View::removeProject()
+{
+	viewData output;
+	cout << "Enter valid project ID number: ";
+	cin >> output["ID"];
+	return output;
+}
+
+viewData View::removeMaterial()
+{
+	viewData output;
+	cout << "Enter valid material ID number: ";
+	cin >> output["ID"];
+	return output;
 }
 #endif // !VIEW_CPP

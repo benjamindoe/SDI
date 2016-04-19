@@ -17,7 +17,7 @@ public:
 	~Project();
 
 	void addMaterialId (int materialId);
-
+	void removeMaterialId(int materialId);
 	/*
 	 * Getters
 	 */

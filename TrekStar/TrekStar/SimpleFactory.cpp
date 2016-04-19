@@ -4,6 +4,8 @@
 #include <iostream>
 #include "SimpleFactory.h"
 
+using json = nlohmann::json;
+
 SimpleFactory::SimpleFactory()
 {
 }

@@ -15,8 +15,10 @@ public:
 	virtual json getProperties() = 0;
 
 	int getId() const;
+	int getProjId() const;
 protected:
 	int idNumber;
+	int projIdNumber;
 	std::string MaterialTitle;
 	std::string format;
 	std::string packagingSpec;

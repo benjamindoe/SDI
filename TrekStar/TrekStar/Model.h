@@ -38,12 +38,16 @@ public:
 	void removeProject(int id);
 
 	/*
-	 * Search members
+	 * Search members and getters
 	 */
-	map<string, string> searchProjectByName(string projectName);
-	map<string, string> searchProjectByKeywords(string keyword);
+	json getAllProjects();
+	json getAllMaterials();
+	json getProjectById(int id);
+	json getMaterialById(int id);
+	json getProjectsByTitle(string projectTitle);
+	json searchByMaterialsByTitle(string materialTitle);
+	//json getProjectsByKeywords(string keyword);
 	// map<string, string> searchProjectByActor(string projetName);
-	map<string, string> searchByMaterialByTitle(string materialTitle);
 
 	void save();
 private:

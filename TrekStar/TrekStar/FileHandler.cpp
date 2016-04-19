@@ -6,6 +6,7 @@
 
 #include "FileHandler.h"
 
+using json = nlohmann::json;
 
 FileHandler::FileHandler(std::string filename, std::ios_base::openmode mode)
 {

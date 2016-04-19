@@ -33,7 +33,7 @@ Model::~Model()
 
 bool Model::addMaterial(int projId, json properties)
 {
-	vector<Project*>::iterator it = find_if(projects.begin(), projects.end(), [&projId](Project* obj) {return obj->getId() == projId;});
+	vector<Project*>::iterator it = find(projects.begin(), projects.end(), [&projId](Project* obj) {return obj->getId() == projId;});
 	if (it != projects.end() || (*it)->getStatus() == "Released")
 	{
 		int materialId = (*it)->getMaterialIds().back + 1;
@@ -64,17 +64,29 @@ bool Model::addProject(json properties)
 
 void Model::removeMaterial(int id)
 {
-
+	auto it = find(materials.begin(), materials.end(), id);
+	materials.erase(std::remove(materials.begin(), materials.end(), id), materials.end());
+	(*find(projects.begin(), projects.end(), (*it)->getProjId()))->removeMaterialId(id);
 }
 
 void Model::removeProject(int id)
 {
-
+	auto it = find(projects.begin(), projects.end(), id);
+	auto deleteMaterials = (*it)->getMaterialIds();
+	projects.erase(std::remove(projects.begin(), projects.end(), id), projects.end());
+	for (int i : deleteMaterials)
+		materials.erase(std::remove(materials.begin(), materials.end(), i), materials.end());
 }
 
 void Model::save()
 {
-	json toParse;
+	json toParse = getAllProjects();
+	handler->writeJson(toParse);
+}
+
+json Model::getAllMaterials()
+{
+	json parsed;
 	for (Project* proj : projects)
 	{
 		json projJson = proj->getProperties();
@@ -88,10 +100,23 @@ void Model::save()
 				projJson["Materials"].push_back(matJson);
 			}
 		}
-		toParse["Projects"].push_back(projJson);
+		parsed["Projects"].push_back(projJson);
 	}
-	handler->writeJson(toParse);
+	return parsed;
 }
 
+json Model::getProjectById(int id)
+{
+	auto it = find(projects.begin(), projects.end(), [&id](Project* obj) {return obj->getId() == id; });
+}
 
+json Model::getAllMaterials()
+{
+	json materialJson;
+	for (Material* material : materials)
+	{
+		materialJson["Materials"].push_back(material->getProperties());
+	}
+	return materialJson;
+}
 #endif // !MODEL_CPP

@@ -7,6 +7,7 @@
 
 #include "Project.h"
 
+using json = nlohmann::json;
 
 Project::Project(json properties)
 {
@@ -35,20 +36,22 @@ Project::~Project()
 
 json Project::getProperties() const
 {
+	json projProps;
 	char buffer[20];
 	struct tm tm;
 	localtime_s(&tm, &releaseDate);
 	std::stringstream ssTime;
 	ssTime << strftime(buffer, 20, "%F", &tm);
-	std::vector<std::string> rVec = { projectTitle, summary, genre, ssTime.str(), language, std::to_string(weeklyBoxOffice) };
-   /*
-	* For < C++11,
-	* int arr[] = { projectTitle, summary, genre, ssTime.str(), language, std::to_string(weeklyBoxOffice) }
-	* std::vector<std::string> rVec(arr, arr + 6);
-	*
-	*/
+	json projProps = { 
+			{ "Project Title", projectTitle }, 
+			{ "Summary", summary },
+			{ "Genre", genre },
+			{ "Release Date", ssTime.str() },
+			{ "Language", language },
+			{ "Weekly Box Office", to_string(weeklyBoxOffice) }
+	};
 
-	return rVec;
+	return projProps;
 }
 
 string Project::getTitle() const
@@ -76,6 +79,9 @@ vector<int> Project::getMaterialIds() const
 	return projMaterialIds;
 }
 
-
+void Project::removeMaterialId(int id)
+{
+	projMaterialIds.erase(std::remove(projMaterialIds.begin(), projMaterialIds.end(), id), projMaterialIds.end());
+}
 #endif // !PROJECT_CPP
 

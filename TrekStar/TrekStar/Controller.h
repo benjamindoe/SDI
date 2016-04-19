@@ -18,7 +18,14 @@ public:
 	~Controller();
 
 private:
+	void materials();
+	void removeMaterial();
+	void removeProject();
+	void addProject();
+	void addMaterial();
+	void viewMaterials();
 	Model* model;
+	View* view;
 };
 
 #endif // !CONTROLLER_H
