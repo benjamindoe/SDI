@@ -94,7 +94,8 @@ void View::main()
 {
 	cout << 
 		"1 - Projects\n"
-		"2 - Materials"
+		"2 - Materials\n"
+		"0 - Main Menu"
 		<< endl;
 }
 
@@ -103,7 +104,8 @@ void View::mainProject()
 	cout << 
 		"1 - View Projects\n"
 		"2 - Add Project\n"
-		"3 - Remove Project"
+		"3 - Remove Project\n"
+		"0 - Main Menu"
 		<< endl;
 }
 
@@ -112,7 +114,8 @@ void View::mainMaterial()
 	cout <<
 		"1 - View Materials\n"
 		"2 - Add Material\n"
-		"3 - Remove Material"
+		"3 - Remove Material\n"
+		"0 - Main Menu"
 		<< endl;
 }
 
