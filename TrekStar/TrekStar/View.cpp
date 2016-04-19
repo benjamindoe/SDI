@@ -5,6 +5,7 @@
 
 #include "View.h"
 
+using namespace std;
 
 View::View()
 {
@@ -63,7 +64,7 @@ void View::make(Views view, viewParams params)
 	}
 }
 
-map<string, string> View::get(Inputs view)
+viewData View::get(Inputs view)
 {
 	map<string, string> userInput;
 	switch (view)
@@ -130,11 +131,11 @@ ostringstream View::viewMaterial(viewParams params, bool printStream)
 		<< ""
 		<< "Title: " << params["title"] << "\n"
 		<< "ID Number" << params["id"] << "\n"
-		<< "Format: " << params["format"] << "\n"
+		<< "Format: " << params["Format"] << "\n"
 		<< "Runtime: " << params["runtime"] << "\n"
 		<< "Language(s): ";
 	
-	stringstream ss(params["language"]);
+	stringstream ss(params["Language"]);
 	string token;
 	while (getline(ss, token, ','))
 		output << token << '\n';
@@ -151,49 +152,103 @@ ostringstream View::viewMaterial(viewParams params, bool printStream)
 	return output;
 }
 
-viewData View::addMaterial()
+viewData View::addMaterial(bool isCombo)
 {
-	viewData matData;
-	cout << "Project ID number: ";
-	cin >> matData["projId"];
-	cout << "Title: ";
-	cin >> matData["title"];
-	cout << "Format: ";
-	cin >> matData["format"];
-	cout << "Runtime: ";
-	cin >> matData["runtime"];
-	if (matData["format"] == "DVD" || matData["format"] == "Blu-Ray")
+	nlohmann::json matData;
+	if (!isCombo)
 	{
-		stringstream langStream;
-		bool anotherLang = true;
-		string seperate = "";
-		cout << "Languages:\n";
-		while (anotherLang)
+		cout << "Project ID number: ";
+		cin >> matData["projId"];
+	}
+	cout << "Title: ";
+	cin >> matData["Title"];
+	cout << "Format: ";
+	cin >> matData["Format"];
+	if (regex_match(matData["Format"].get<std::string>(), regex("(VHS|DVD|Blu-Ray)")))
+	{
+		cout << "Runtime: ";
+		cin >> matData["Runtime"];
+		cout << "Aspect Ratio";
+		cin >> matData["Aspect Ratio"];
+		cout << "Audio Format";
+		cin >> matData["Audio Format"];	
+		if (matData["Format"] == "DVD" || matData["Format"] == "Blu-Ray")
 		{
-			string str;
-			cout << "Languange: ";
-			cin >> str;
-			langStream << seperate << str;
-			seperate = ",";
-
-			bool again = true;
-			while (again)
+			bool anotherLang = true;
+			cout << "Languages:\n";
+			while (anotherLang)
 			{
-				string userSel;
-				cout << "Add another lanuage? (Y/N)";
-				cin >> userSel;
-				regex expression("(Yes|No|yes|no|[YyNn])");
-				if (regex_match(userSel, expression))
-					again = false;
+				string str;
+				cout << "Language: ";
+				cin >> str;
+				matData["Languages"].push_back(str);
+
+				bool again = true;
+				while (again)
+				{
+					string userSel;
+					cout << "Add another lanuage? (Y/N)";
+					cin >> userSel;
+					regex expression("(Yes|No|yes|no|[YyNn])");
+					if (regex_match(userSel, expression))
+					{
+						again = false;
+						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+					}
+				}
+			}
+
+			cout << "Subtitle Languages: ";
+			anotherLang = true;
+			while (anotherLang)
+			{
+				string str;
+				cout << "Language: ";
+				cin >> str;
+				matData["Subtitle Language"].push_back(str);
+
+				bool again = true;
+				while (again)
+				{
+					string userSel;
+					cout << "Add another subtitle lanuage? (Y/N)";
+					cin >> userSel;
+					regex expression("(Yes|No|yes|no|[YyNn])");
+					if (regex_match(userSel, expression))
+					{
+						again = false;
+						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+					}
+				}
 			}
 		}
-		matData["Languages"] = langStream.str();
+		else if (matData["Format"] == "VHS")
+		{
+			cout << "Language: ";
+			cin >> matData["Language: "];
+			cout << "Subtitle Language";
+			cin >> matData["Subtitle Language"];
+		}
 	}
-	else
-	{
-		cout << "Langauge: ";
-		cin >> matData["Language: "];
+	else if (regex_match(matData["Format"].get<string>(), regex("(ComboBox|Double Sided DVD)"))){
+		if (matData["Format"] = "ComboBox")
+		{
+			int noDVD;
+			cout << "Number of DVDs";
+			cin >> noDVD;
+			for (int i = 0; i < noDVD; i++)
+				matData["Discs"].push_back(addMaterial(true));
+		}
+		else 
+		{
+			cout << "Side A";
+			matData["Side A"] = addMaterial(true);
+			
+			cout << "Side B";
+			matData["Side B"] = addMaterial(true);
+		}
 	}
+
 	cout << endl;
 	return matData;
 
@@ -211,9 +266,84 @@ viewData View::addProject()
 	cout << "Release Date: ";
 	cin >> projData["releaseDate"];
 	cout << "Language: ";
-	cin >> projData["language"];
-
-
+	cin >> projData["Language"];
+	cout << "Keywords\n";
+	bool moreKw = true;
+	while (moreKw)
+	{
+		string keyword;
+		cout << "Keyword: ";
+		cin >> keyword;
+		projData["Keywords"].push_back(keyword);
+		bool again = true;
+		while (again)
+		{
+			string userSel;
+			cout << "Add another keyword? (Y/N)";
+			cin >> userSel;
+			regex expression("(Yes|No|yes|no|[YyNn])");
+			if (regex_match(userSel, expression))
+			{
+				again = false;
+				moreKw = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+			}
+		}
+	}
+	bool moreCast = true;
+	while (moreCast)
+	{
+		string key;
+		string val;
+		viewData cast;
+		cout << "Role: ";
+		cin >> key;
+		cout << "Name: ";
+		cin >> val;
+		cast = { { key, val } };
+		projData["Cast and Crew"].push_back(cast);
+		bool again = true;
+		while (again)
+		{
+			string userSel;
+			cout << "Add another cast/crew member? (Y/N)";
+			cin >> userSel;
+			regex expression("(Yes|No|yes|no|[YyNn])");
+			if (regex_match(userSel, expression))
+			{
+				again = false;
+				moreCast = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+			}
+		}
+	}
+	cout << "Status: ";
+	cin >> projData["Status"];
+	if (projData["Status"].get<string>() == "Released")
+	{
+		cout << "Add Materials now? (Y/N): ";
+		string userSel;
+		cin >> userSel;
+		if (regex_match(userSel, regex("(Yes|yes|[Yy])")))
+		{
+			bool moreMaterial = true;
+			while (moreMaterial)
+			{
+				projData["Materials"].push_back(addMaterial());
+				bool again = true;
+				while (again)
+				{
+					string userSel;
+					cout << "Add another cast/crew member? (Y/N)";
+					cin >> userSel;
+					regex expression("(Yes|No|yes|no|[YyNn])");
+					if (regex_match(userSel, expression))
+					{
+						again = false;
+						moreMaterial = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+					}
+				}
+			}
+		}
+	}
 
 	return projData;
 }

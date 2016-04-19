@@ -7,9 +7,11 @@
 #include <string>
 #include <vector>
 
+#include "JSON\json.hpp"
+
 using namespace std;
 
-	typedef map<string, string> viewData;
+typedef nlohmann::json viewData;
 class View
 {
 public:
@@ -38,7 +40,7 @@ public:
 	void make(Views view);
 	void make(Views view, vector<viewParams> params);
 	void make(Views view, viewParams params);
-	map<string, string> get(Inputs view);
+	viewData get(Inputs view);
 
 private:
 	void main();                                                           
@@ -48,7 +50,7 @@ private:
 	void viewProjects(vector<viewParams> params);
 	ostringstream viewMaterial(viewParams params, bool printStream = false);
 	ostringstream viewProject(viewParams params, bool printStream = false);
-	viewData addMaterial();
+	viewData addMaterial(bool isCombo = false);
 	viewData removeMaterial();
 	viewData addProject();
 	viewData removeProject();

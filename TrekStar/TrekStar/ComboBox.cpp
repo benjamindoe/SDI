@@ -3,6 +3,9 @@
 
 #include "ComboBox.h"
 
+using json = nlohmann::json;
+using namespace std;
+
 ComboBox::ComboBox(json properties) : Material(properties)
 {
 	for (int i = 0; i < properties["Discs"].size(); i++)

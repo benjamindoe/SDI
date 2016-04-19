@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "JSON\JSON.hpp"
-using json = nlohmann::json;
+typedef nlohmann::json json;
 
 class Material
 {

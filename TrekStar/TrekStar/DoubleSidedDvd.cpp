@@ -3,6 +3,8 @@
 
 #include "DoubleSidedDvd.h"
 
+using json = nlohmann::json;
+
 DoubleSidedDvd::DoubleSidedDvd(json properties) : Disc(properties)
 {
 

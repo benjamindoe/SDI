@@ -1,17 +1,8 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Seminar D.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  View.cpp
-  Vhs.cpp
-  SimpleFactory.cpp
-  Project.cpp
-  Model.cpp
-  Material.cpp
-  main.cpp
-  FileHandler.cpp
-  DoubleSidedDvd.cpp
-  Disc.cpp
-  Controller.cpp
-  ComboBox.cpp
-d:\n0561281\sdi\trekstar\trekstar\combobox.cpp(8): warning C4018: '<': signed/unsigned mismatch
-d:\n0561281\sdi\trekstar\trekstar\combobox.cpp(25): warning C4800: 'Disc *': forcing value to bool 'true' or 'false' (performance warning)
-  Generating Code...
-  TrekStar.vcxproj -> D:\N0561281\SDI\TrekStar\Debug\TrekStar.exe
+﻿Build started 19/04/2016 13:29:11.
+     1>Project "C:\Users\N0561281\Source\Repos\SDi\TrekStar\TrekStar\TrekStar.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Cpp.Platform.targets(64,5): error MSB8020: The build tools for v140 (Platform Toolset = 'v140') cannot be found. To build using the v140 build tools, please install v140 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Upgrade Solution...".
+     1>Done Building Project "C:\Users\N0561281\Source\Repos\SDi\TrekStar\TrekStar\TrekStar.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.02

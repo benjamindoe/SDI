@@ -8,6 +8,7 @@
 #include "Material.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 Material::Material(json properties)
 {
