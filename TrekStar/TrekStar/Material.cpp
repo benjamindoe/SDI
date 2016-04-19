@@ -29,6 +29,7 @@ json Material::getProperties()
 	tmp["Format"] = format;
 	tmp["Packaging Specification"] = packagingSpec;
 	tmp["Retail Price"] = retailPrice;
+	return tmp;
 }
 
 int Material::getId() const

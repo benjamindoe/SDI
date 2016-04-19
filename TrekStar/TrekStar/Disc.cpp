@@ -19,7 +19,7 @@ Disc::~Disc()
 
 json Disc::getProperties()
 {
-	json tmp = Material::getProperties;
+	json tmp = &Material::getProperties;
 	tmp["Language"] = language;
 	tmp["Subtitle Lanugage"] = subLanguage;
 	tmp["Bonus Features"] = bonusFeatures;

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <exception>
 
 #include "Material.h"
 #include "Vhs.h"

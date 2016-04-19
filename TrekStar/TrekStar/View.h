@@ -1,25 +1,58 @@
-#pragma once
+#ifndef VIEW_H
+#define VIEW_H
+
+#include <iostream>
+#include <sstream>
+#include <map>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+	typedef map<string, string> viewData;
 class View
 {
 public:
 
-	enum Menus
+	typedef map<string, string> viewParams;
+	enum Views
 	{
 		MAIN,
-		VIEW_MATERIALS,
-		ADD_MATERIALS,
-		REMOVE_MATERIALS,
+		MAIN_PROJECT,
+		MAIN_MATERIAL,
 		VIEW_PROJECTS,
+		VIEW_MATERIALS,
+		VIEW_MATERIAL,
+		VIEW_PROJECT
+	};
+	enum Inputs
+	{
 		ADD_PROJECT,
 		REMOVE_PROJECT,
+		ADD_MATERIAL,
+		REMOVE_MATERIAL,
 		ALTER_PROJECT
 	};
-
 	View();
 	~View();
-	void make(View::Menus menuType);
+	void make(Views view);
+	void make(Views view, vector<viewParams> params);
+	void make(Views view, viewParams params);
+	map<string, string> get(Inputs view);
 
 private:
-
+	void main();                                                           
+	void mainProject();
+	void mainMaterial();
+	void viewMaterials(vector<viewParams> params);
+	void viewProjects(vector<viewParams> params);
+	ostringstream viewMaterial(viewParams params, bool printStream = false);
+	ostringstream viewProject(viewParams params, bool printStream = false);
+	viewData addMaterial();
+	viewData removeMaterial();
+	viewData addProject();
+	viewData removeProject();
+	viewData alterProject();
 };
 
+#endif // !VIEW_H

@@ -16,7 +16,7 @@ public:
 	Project(json properties);
 	~Project();
 
-	void addMaterialRef(int materialId);
+	void addMaterialId (int materialId);
 
 	/*
 	 * Getters

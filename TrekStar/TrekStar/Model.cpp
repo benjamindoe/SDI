@@ -10,9 +10,9 @@ Model::Model(std::string filename)
 	handler = new FileHandler(filename);
 	factory = new SimpleFactory();
 	json jData = handler->parseJson();
-	if (!jData.is_null & jData.is_object)
+	if (!jData.is_null() & jData.is_object())
 	{
-		root = jData.object;
+		root = jData.object();
 	}
 	for (json project : root["Projects"])
 	{
@@ -33,14 +33,16 @@ Model::~Model()
 
 bool Model::addMaterial(int projId, json properties)
 {
-	vector<Project*>::iterator it = find_if(projects.begin(), projects.end(), [&projId](const Project& obj) {return obj.getId() == projId;});
-	if (it != projects.end() || (*it)->getStatus() == "Unreleased" && (*it)->getStatus() == "Now Playing")
+	vector<Project*>::iterator it = find_if(projects.begin(), projects.end(), [&projId](Project* obj) {return obj->getId() == projId;});
+	if (it != projects.end() || (*it)->getStatus() == "Released")
+	{
+		int materialId = (*it)->getMaterialIds().back + 1;
+		(*it)->addMaterialId(materialId);
+		properties["ID"] = materialId;
+		materials.push_back(factory->create(properties["Material Type"], properties));
+		return true;
+	}
 		return false;
-
-	materials.push_back(factory->create(properties["Material Type"], properties));
-	return true;
-
-
 }
 
 bool Model::addProject(json properties)
@@ -52,9 +54,12 @@ bool Model::addProject(json properties)
 		for (json mat : properties["Materials"])
 		{
 			this->addMaterial(properties["ID"].get<int>(), mat);
-			projects.back()->addMaterialRef(mat["ID"]);
+			projects.back()->addMaterialId(mat["ID"]);
+			materials.push_back(factory->create(mat["Material Type"], mat));
 		}
+	return true;
 	}
+	return false;
 }
 
 void Model::removeMaterial(int id)

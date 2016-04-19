@@ -35,6 +35,7 @@ Material* SimpleFactory::create(std::string materialType, json data)
 	else
 	{
 		std::cerr << "Invalid material type." << std::endl;
+		throw;
 	}
 	return materialPtr;
 }

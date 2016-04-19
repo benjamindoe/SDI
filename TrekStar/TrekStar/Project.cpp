@@ -66,7 +66,7 @@ string Project::getStatus() const
 	return status;
 }
 
-void Project::addMaterialRef(int materialId)
+void Project::addMaterialId(int materialId)
 {
 	projMaterialIds.push_back(materialId);
 }
