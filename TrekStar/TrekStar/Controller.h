@@ -18,12 +18,18 @@ public:
 	~Controller();
 
 private:
-	void materials();
-	void removeMaterial();
-	void removeProject();
+	void projects();
+	void viewProjects();
 	void addProject();
-	void addMaterial();
+	void removeProject();
+	void addBoxOffice();
+
+	void materials();
 	void viewMaterials();
+	void addMaterial();
+	void removeMaterial();
+
+
 	Model* model;
 	View* view;
 };

@@ -16,7 +16,7 @@ class View
 {
 public:
 
-	typedef map<string, string> viewParams;
+	typedef map<const string, string> viewParams;
 	enum Views
 	{
 		MAIN,
@@ -33,7 +33,8 @@ public:
 		REMOVE_PROJECT,
 		ADD_MATERIAL,
 		REMOVE_MATERIAL,
-		ALTER_PROJECT
+		ALTER_PROJECT,
+		ADD_BOX_OFFICE
 	};
 	View();
 	~View();
@@ -48,13 +49,14 @@ private:
 	void mainMaterial();
 	void viewMaterials(vector<viewParams> params);
 	void viewProjects(vector<viewParams> params);
-	ostringstream viewMaterial(viewParams params, bool printStream = false);
-	ostringstream viewProject(viewParams params, bool printStream = false);
+	ostringstream viewer(viewParams params, bool printStream = false);
 	viewData addMaterial(bool isCombo = false);
 	viewData removeMaterial();
 	viewData addProject();
 	viewData removeProject();
 	viewData alterProject();
+	viewData addBoxOffice();
+	string getIn() const;
 };
 
 #endif // !VIEW_H

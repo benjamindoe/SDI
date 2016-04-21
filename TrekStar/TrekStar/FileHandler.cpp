@@ -8,30 +8,33 @@
 
 using json = nlohmann::json;
 
-FileHandler::FileHandler(std::string filename, std::ios_base::openmode mode)
+FileHandler::FileHandler(std::string filename)
 {
-	file.open(filename, mode);
+	filename_ = filename;
 }
 
 
 FileHandler::~FileHandler()
 {
-	file.close();
 }
 
 json FileHandler::parseJson()
 {
+	std::ifstream file(filename_);
+	;
 	std::string fileContent((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
 	const char* jsonBuffer = fileContent.c_str();
-
+	file.close();
 	return json::parse(jsonBuffer);
 }
 
 void FileHandler::writeJson(json jsonData)
 {
-	file << jsonData;
+	std::ofstream file(filename_);
+	file << std::setw(2) << jsonData;
+	file.close();
 }
-
+/*
 std::vector<std::vector<std::string>> FileHandler::parseCsv()
 {
 	std::vector<std::vector<std::string>> parsedCsvElem;
@@ -59,5 +62,5 @@ void FileHandler::writeCsv(std::vector<std::string> dataToWrite)
 	}
 	//dataToWrite
 }
-
+*/
 #endif // !FILEHANDLER_CPP

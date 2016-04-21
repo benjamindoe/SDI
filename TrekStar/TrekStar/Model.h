@@ -34,9 +34,9 @@ public:
 	 */
 	bool addMaterial(int projectId, json properties);
 	bool addProject(json properties);
-	void removeMaterial(int id);
+	void removeMaterial(int id, bool removeProjRef = true);
 	void removeProject(int id);
-
+	bool addBoxOffice(int id, int val);
 	/*
 	 * Search members and getters
 	 */
@@ -51,6 +51,7 @@ public:
 
 	void save();
 private:
+	static bool objFinder();
 	vector<Project*> projects;
 	vector<Material*> materials;
 	json root;

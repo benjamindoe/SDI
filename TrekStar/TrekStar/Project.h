@@ -18,6 +18,7 @@ public:
 
 	void addMaterialId (int materialId);
 	void removeMaterialId(int materialId);
+	void addBoxOffice(int val);
 	/*
 	 * Getters
 	 */
@@ -31,12 +32,14 @@ private:
 	string projectTitle;
 	string summary;
 	string genre;
-	time_t releaseDate;
+	struct tm releaseDate;
 	string language;
-	int weeklyBoxOffice;
+	vector<int> weeklyBoxOffice;
+	int runtime;
 	vector<string> keywords;
 	vector<int> projMaterialIds;
 	vector<pair<string, string>> castAndCrew;
+	vector<string> filmingLoc;
 	string status;
 };
 

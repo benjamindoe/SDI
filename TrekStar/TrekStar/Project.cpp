@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include <map>
+#include <cerrno>
 
 #include "Project.h"
 
@@ -11,20 +12,23 @@ using json = nlohmann::json;
 
 Project::Project(json properties)
 {
-	
-	projectTitle = properties["Project Title"].get<string>();
-	summary = properties["Summary"].get<string>();
-	genre = properties["Genre"].get<string>();
+	id = properties["ID"].get<int>();
+	projectTitle = properties["Project Title"].is_null() ? "" : properties["Project Title"].get<string>();
+	summary = properties["Summary"].is_null() ? "" : properties["Summary"].get<string>();
+	genre = properties["Genre"].is_null() ? "" : properties["Genre"].get<string>();
+	runtime = properties["Runtime"];
+	if (!properties["Release Date"].is_null())
+	{
+		stringstream ss(properties["Release Date"].get<string>());
+			ss >> std::get_time(&releaseDate, "%Y-%m-%d");
+			mktime(&releaseDate);
+	}
 
-	struct tm tm;
-	std::stringstream tmpSs(properties["Release Date"].get<string>());
-	tmpSs >> std::get_time(&tm, "%F");
-	releaseDate = mktime(&tm);
-
-	language = properties["Lanuguage"].get<string>();
-	weeklyBoxOffice = properties["Weekly Box Office"].get<int>();
-	keywords = properties["Keywords"].get<vector<string>>();
-
+	language = properties["Language"].is_null() ? "" : properties["Language"].get<string>();
+	weeklyBoxOffice = properties["Weekly Box Office"].is_null() ? vector<int>() : properties["Weekly Box Office"].get<vector<int>>();
+	keywords = properties["Keywords"].is_null() ? vector<string>() : properties["Keywords"].get<vector<string>>();
+	status = properties["Status"].get<string>();
+	filmingLoc = properties["Filming Locations"].is_null() ? vector<string>() : properties["Filming Locations"].get<vector<string>>();
 	for (json material : properties["Materials"])
 		projMaterialIds.push_back(material["ID"].get<int>());
 }
@@ -36,21 +40,21 @@ Project::~Project()
 
 json Project::getProperties() const
 {
-	json projProps;
-	char buffer[20];
-	struct tm tm;
-	localtime_s(&tm, &releaseDate);
-	std::stringstream ssTime;
-	ssTime << strftime(buffer, 20, "%F", &tm);
+	char buffer[50];
+	strftime(buffer, 50, "%F", &releaseDate);
+	string timeStr(buffer);
 	json projProps = { 
-			{ "Project Title", projectTitle }, 
-			{ "Summary", summary },
-			{ "Genre", genre },
-			{ "Release Date", ssTime.str() },
-			{ "Language", language },
-			{ "Weekly Box Office", to_string(weeklyBoxOffice) }
+		{ "ID", id },
+		{ "Project Title", projectTitle }, 
+		{ "Summary", summary },
+		{ "Genre", genre },
+		{ "Release Date", timeStr },
+		{ "Language", language },
+		{ "Weekly Box Office", weeklyBoxOffice },
+		{ "Keywords", keywords },
+		{ "Runtime", runtime },
+		{ "Status", status }
 	};
-
 	return projProps;
 }
 
@@ -82,6 +86,11 @@ vector<int> Project::getMaterialIds() const
 void Project::removeMaterialId(int id)
 {
 	projMaterialIds.erase(std::remove(projMaterialIds.begin(), projMaterialIds.end(), id), projMaterialIds.end());
+}
+
+void Project::addBoxOffice(int val)
+{
+	weeklyBoxOffice.push_back(val);
 }
 #endif // !PROJECT_CPP
 

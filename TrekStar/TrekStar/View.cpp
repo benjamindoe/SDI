@@ -5,7 +5,7 @@
 
 #include "View.h"
 
-using namespace std;
+using json = nlohmann::json;
 
 View::View()
 {
@@ -39,7 +39,7 @@ void View::make(Views view, vector<viewParams> params)
 	switch (view)
 	{
 	case View::VIEW_PROJECTS:
-		//viewProjects(params);
+		viewProjects(params);
 		break;
 	case View::VIEW_MATERIALS:
 		viewMaterials(params);
@@ -54,10 +54,10 @@ void View::make(Views view, viewParams params)
 	switch (view)
 	{
 	case View::VIEW_PROJECT:
-		//viewProject(params, true);
+		viewer(params, true);
 		break;
 	case View::VIEW_MATERIAL:
-		viewMaterial(params, true);
+		viewer(params, true);
 		break;
 	default:
 		break;
@@ -73,11 +73,13 @@ viewData View::get(Inputs view)
 		userInput = addProject();
 		break;
 	case View::REMOVE_PROJECT:
-		//userInput = removeProject();
+		userInput = removeProject();
 		break;
 	case View::ADD_MATERIAL:
 		userInput = addMaterial();
 		break;
+	case View::ADD_BOX_OFFICE:
+		userInput = addBoxOffice();
 	case View::REMOVE_MATERIAL:
 		//userInput = removeMaterial();
 		break;
@@ -95,8 +97,8 @@ void View::main()
 	cout << 
 		"1 - Projects\n"
 		"2 - Materials\n"
-		"0 - Main Menu"
-		<< endl;
+		"0 - Quit\n"
+		"Enter number: ";
 }
 
 void View::mainProject()
@@ -105,8 +107,9 @@ void View::mainProject()
 		"1 - View Projects\n"
 		"2 - Add Project\n"
 		"3 - Remove Project\n"
-		"0 - Main Menu"
-		<< endl;
+		"4 - Add Weekly Box Office\n"
+		"0 - Main Menu\n"
+		"Enter number: ";
 }
 
 void View::mainMaterial()
@@ -115,28 +118,41 @@ void View::mainMaterial()
 		"1 - View Materials\n"
 		"2 - Add Material\n"
 		"3 - Remove Material\n"
-		"0 - Main Menu"
-		<< endl;
+		"0 - Main Menu\n"
+		"Enter number: ";
 }
 
 void View::viewMaterials(vector<viewParams> params)
 {
 	ostringstream output;
 	output
-		<< "Materials\n"
+		<< "\nMaterials\n"
 		<< "---------\n\n";
 	for (viewParams material : params)
 	{
-		output << viewMaterial(material).str() << "\n";
+		output << viewer(material).str() << "\n";
 	}
 	output << endl;
 	cout << output.str() << endl;
 }
 
-ostringstream View::viewMaterial(viewParams params, bool printStream)
+void View::viewProjects(vector<viewParams> params)
 {
 	ostringstream output;
-	for (auto& keyVal : params)
+	output
+		<< "\nProjects\n"
+		<< "---------\n\n";
+	for (viewParams proj : params)
+	{
+		output << viewer(proj).str() << "\n";
+	}
+	cout << output.str() << endl;
+}
+
+ostringstream View::viewer(viewParams params, bool printStream)
+{
+	ostringstream output;
+	for (pair<const string, string> keyVal : params)
 	{
 		output << keyVal.first << ": " << keyVal.second << "\n";
 	}
@@ -152,28 +168,29 @@ ostringstream View::viewMaterial(viewParams params, bool printStream)
 
 viewData View::addMaterial(bool isCombo)
 {
-	nlohmann::json matData;
+	json matData;
+	getIn();
 	if (!isCombo)
 	{
 		cout << "Project ID number: ";
-		cin >> matData["projId"];
+		matData["Project ID"] = stoi(getIn());
 	}
 	cout << "Title: ";
-	cin >> matData["Title"];
+	matData["Material Title"] = getIn();
 	cout << "Format: ";
-	cin >> matData["Format"];
-	if (regex_match(matData["Format"].get<std::string>(), regex("(VHS|DVD|Blu-Ray)")))
+	matData["Format"] = getIn();
+	if (regex_match(matData["Format"].get<string>(), regex("(VHS|DVD|Blu-Ray)")))
 	{
 		cout << "Runtime: ";
-		cin >> matData["Runtime"];
-		cout << "Aspect Ratio";
-		cin >> matData["Aspect Ratio"];
-		cout << "Audio Format";
-		cin >> matData["Audio Format"];	
+		matData["Runtime"] = stoi(getIn());
+		cout << "Frame Aspect: ";
+		matData["Frame Aspect"] = getIn();
+		cout << "Audio Format: ";
+		matData["Audio Format"] = getIn();	
 		if (matData["Format"] == "DVD" || matData["Format"] == "Blu-Ray")
 		{
 			bool anotherLang = true;
-			cout << "Languages:\n";
+			cout << "Languages\n";
 			while (anotherLang)
 			{
 				string str;
@@ -191,12 +208,12 @@ viewData View::addMaterial(bool isCombo)
 					if (regex_match(userSel, expression))
 					{
 						again = false;
-						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy])"));
 					}
 				}
 			}
 
-			cout << "Subtitle Languages: ";
+			cout << "Subtitle Languages\n";
 			anotherLang = true;
 			while (anotherLang)
 			{
@@ -215,7 +232,7 @@ viewData View::addMaterial(bool isCombo)
 					if (regex_match(userSel, expression))
 					{
 						again = false;
-						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+						anotherLang = regex_match(userSel, regex("(Yes|yes|[Yy])"));
 					}
 				}
 			}
@@ -223,9 +240,9 @@ viewData View::addMaterial(bool isCombo)
 		else if (matData["Format"] == "VHS")
 		{
 			cout << "Language: ";
-			cin >> matData["Language: "];
-			cout << "Subtitle Language";
-			cin >> matData["Subtitle Language"];
+			matData["Language"] = getIn();
+			cout << "Subtitle Language: ";
+			matData["Subtitle Language"] = getIn();
 		}
 	}
 	else if (regex_match(matData["Format"].get<string>(), regex("(ComboBox|Double Sided DVD)"))){
@@ -248,7 +265,7 @@ viewData View::addMaterial(bool isCombo)
 	}
 
 	cout << "Retail Price: ";
-	cin >> matData["Retail Price"];
+	matData["Retail Price"] = stod(getIn());
 	cout << endl;
 	return matData;
 
@@ -256,17 +273,18 @@ viewData View::addMaterial(bool isCombo)
 
 viewData View::addProject()
 {
+	cout << endl;
 	viewData projData;
 	cout << "Title: ";
-	cin >> projData["title"];
+	projData["Title"] = getIn();
 	cout << "Summary: ";
-	cin >> projData["summary"];
+	projData["Summary"] = getIn();
 	cout << "Genre: ";
-	cin >> projData["genre"];
+	projData["Genre"] = getIn();
 	cout << "Release Date: ";
-	cin >> projData["releaseDate"];
+	projData["Release Date"] = getIn();
 	cout << "Language: ";
-	cin >> projData["Language"];
+	projData["Language"] = getIn();
 	cout << "Keywords\n";
 	bool moreKw = true;
 	while (moreKw)
@@ -285,7 +303,8 @@ viewData View::addProject()
 			if (regex_match(userSel, expression))
 			{
 				again = false;
-				moreKw = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+				moreKw = regex_match(userSel, regex("(Yes|yes|[Yy])"));
+				cout << endl;
 			}
 		}
 	}
@@ -296,9 +315,10 @@ viewData View::addProject()
 		string val;
 		viewData cast;
 		cout << "Role: ";
-		cin >> key;
-		cout << "Name: ";
-		cin >> val;
+		getIn();
+		key = getIn();
+		cout << "Name: ";	
+		val = getIn();
 		cast = { { key, val } };
 		projData["Cast and Crew"].push_back(cast);
 		bool again = true;
@@ -311,12 +331,13 @@ viewData View::addProject()
 			if (regex_match(userSel, expression))
 			{
 				again = false;
-				moreCast = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+				moreCast = regex_match(userSel, regex("(Yes|yes|[Yy])"));
+				cout << endl;
 			}
 		}
 	}
 	cout << "Status: ";
-	cin >> projData["Status"];
+	projData["Status"] = getIn();
 	if (projData["Status"].get<string>() == "Released")
 	{
 		cout << "Add Materials now? (Y/N): ";
@@ -338,7 +359,7 @@ viewData View::addProject()
 					if (regex_match(userSel, expression))
 					{
 						again = false;
-						moreMaterial = regex_match(userSel, regex("(Yes|yes|[Yy]"));
+						moreMaterial = regex_match(userSel, regex("(Yes|yes|[Yy])"));
 					}
 				}
 			}
@@ -350,17 +371,38 @@ viewData View::addProject()
 
 viewData View::removeProject()
 {
+	
 	viewData output;
 	cout << "Enter valid project ID number: ";
-	cin >> output["ID"];
+	output["ID"] = stoi(getIn());
 	return output;
 }
 
 viewData View::removeMaterial()
 {
+	
 	viewData output;
 	cout << "Enter valid material ID number: ";
-	cin >> output["ID"];
+	output["ID"] = stoi(getIn());
 	return output;
 }
+
+viewData View::addBoxOffice()
+{
+	getIn();
+	viewData j;
+	cout << "Project ID: ";
+	j["ID"] = stoi(getIn());
+	cout << "Weekly Box Office";
+	j["Value"] = stoi(getIn());
+	return j;
+}
+
+string View::getIn() const
+{
+	string usrStr;
+	getline(cin, usrStr, '\n');
+	return usrStr;
+}
+
 #endif // !VIEW_CPP

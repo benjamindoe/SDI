@@ -14,14 +14,14 @@ using json = nlohmann::json;
 class FileHandler
 {
 public:
-	FileHandler(std::string filename, std::ios_base::openmode mode = std::ofstream::trunc);
+	FileHandler(std::string filename);
 	~FileHandler();
 	json parseJson();
 	void writeJson(json jsonData);
 private:
 	void writeCsv(std::vector<std::string> dataToWrite);
 	std::vector<std::vector<std::string>> parseCsv();
-	std::fstream file;
+	std::string filename_;
 };
 
 #endif //FILEHANDLER_H

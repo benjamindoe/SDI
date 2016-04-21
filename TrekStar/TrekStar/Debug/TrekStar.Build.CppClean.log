@@ -14,7 +14,6 @@ d:\n0561281\sdi\trekstar\trekstar\debug\disc.sbr
 d:\n0561281\sdi\trekstar\trekstar\debug\controller.sbr
 d:\n0561281\sdi\trekstar\trekstar\debug\combobox.sbr
 d:\n0561281\sdi\trekstar\trekstar\debug\combobox.obj
-d:\n0561281\sdi\trekstar\trekstar\debug\controller.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\disc.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\doublesideddvd.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\filehandler.obj
@@ -25,9 +24,9 @@ d:\n0561281\sdi\trekstar\trekstar\debug\project.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\simplefactory.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\vhs.obj
 d:\n0561281\sdi\trekstar\trekstar\debug\view.obj
-d:\n0561281\sdi\trekstar\debug\trekstar.ilk
-d:\n0561281\sdi\trekstar\debug\trekstar.exe
+d:\n0561281\sdi\trekstar\trekstar\debug\controller.obj
 d:\n0561281\sdi\trekstar\debug\trekstar.pdb
+d:\n0561281\sdi\trekstar\debug\trekstar.ilk
 d:\n0561281\sdi\trekstar\trekstar\debug\trekstar.tlog\bscmake.command.1.tlog
 d:\n0561281\sdi\trekstar\trekstar\debug\trekstar.tlog\bscmake.read.1.tlog
 d:\n0561281\sdi\trekstar\trekstar\debug\trekstar.tlog\bscmake.write.1.tlog
